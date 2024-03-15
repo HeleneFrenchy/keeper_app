@@ -6,10 +6,15 @@ export default function TaskForm(props) {
   const dispatch = useDispatch();
   const [taskName, setTaskName] = useState("");
   const [description, setDescription] = useState("");
+  const [taskDuration, setTaskDuration] = useState(0);
+
   const projects = useSelector((state) => state.projects);
   const currProject = projects.find((project) => project.displayed);
   const handleTaskNameChange = (event) => {
     setTaskName(event.target.value);
+  };
+  const handleTaskDurationChange = (event) => {
+    setTaskDuration(parseInt(event.target.value));
   };
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value);
@@ -20,11 +25,13 @@ export default function TaskForm(props) {
       addTask({
         taskName,
         description,
+        taskDuration,
         projectId: currProject.id,
       })
     );
     setTaskName("");
     setDescription("");
+    setTaskDuration(0);
     props.onClose();
   };
   return (
@@ -43,6 +50,18 @@ export default function TaskForm(props) {
             type="text"
             placeholder="Enter task name"
             onChange={handleTaskNameChange}
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 mb-2" for="taskDuration">
+            Task Duration
+          </label>
+          <input
+            className="border rounded w-full py-2 px-3 text-gray-700"
+            id="taskDuration"
+            type="number"
+            placeholder="Enter task duration"
+            onChange={handleTaskDurationChange}
           />
         </div>
         <div className="mb-4">

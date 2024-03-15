@@ -7,6 +7,8 @@ import {
 } from "@heroicons/react/24/outline";
 import { addTask, deleteTask, completeTask } from "../store/slices/taskSlice";
 import { useState } from "react";
+import PlayButton from "./PlayButton";
+import TaskTimer from "./TaskTimer";
 
 export default function TaskList() {
   const [filter, setFilter] = useState("all");
@@ -66,7 +68,8 @@ export default function TaskList() {
                 task.completed ? "border-green-500" : "border-orange-500"
               }`}
             >
-              <h2 className="text-center pb-4"> {task.name}</h2>
+              <h2 className="text-center pb-4"> {task.name}</h2>{" "}
+              <div>{!task.completed && <TaskTimer />}</div>
               <p className="text-slate-400 text-sm py-2">{task.description}</p>
               <div className="flex justify-between">
                 <button onClick={() => handleDeleteTask(task.id)}>
@@ -81,38 +84,16 @@ export default function TaskList() {
                       <CheckIcon className="h-4 w-4" />
                     </button>
                   )}
+
                   <button>
                     <ArrowPathIcon className="h-4 w-4" />
                   </button>
                 </div>
               </div>
+              <div>{!task.completed && <PlayButton />}</div>
             </div>
           );
         })}
-
-        {/* {
-          <div className="border-2 border-orange-500 rounded m-2 p-3">
-            <h2 className="text-center pb-4">Task Name</h2>
-            <div className="border-4 border-blue-500 rounded"></div>
-            <p className="text-slate-400 text-sm py-2">Task Description</p>
-            <div className="flex justify-between">
-              <button>
-                <TrashIcon className="h-4 w-4" />
-              </button>
-              <div>
-                <button
-                  onClick={() => handleComplete(task.id)}
-                  className="px-2"
-                >
-                  <CheckIcon className="h-4 w-4" />
-                </button>
-                <button>
-                  <ArrowPathIcon className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
-          </div>
-        } */}
       </div>
     </>
   );

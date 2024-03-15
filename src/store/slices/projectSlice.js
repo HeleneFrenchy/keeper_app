@@ -62,12 +62,9 @@ export const projectSlice = createSlice({
         return project;
       });
     },
-    trackedTime: (state, action) => {
-      state.value = action.payload;
-    },
   },
 });
 
-export const { addProject, setDisplayed, trackedTime } = projectSlice.actions;
+export const { addProject, setDisplayed } = projectSlice.actions;
 
 export default projectSlice.reducer;

@@ -9,8 +9,8 @@ const initialState = [
     projectId: "12",
     isRunning: true,
     remainingTime: 4000,
-    remainingSeconds: 4000,
-    completed: true,
+    remainingSeconds: 40,
+    completed: false,
   },
   {
     id: "222",
@@ -20,7 +20,7 @@ const initialState = [
     projectId: "13",
     isRunning: false,
     remainingTime: 5000,
-    remainingSeconds: 5000,
+    remainingSeconds: 50,
     completed: false,
   },
 ];
@@ -36,6 +36,8 @@ export const taskSlice = createSlice({
           id: "24",
           name: action.payload.taskName,
           description: action.payload.description,
+          taskDuration: action.payload.taskDuration,
+
           projectId: action.payload.projectId,
         },
       ];
@@ -62,10 +64,6 @@ export const taskSlice = createSlice({
     stateTimer: (state, action) => {
       state.value = "some value";
       //Start and Stop timer (The state of the timer should be seen every time it changes)
-    },
-    fetchTask: (state, action) => {
-      state.value = "some value";
-      //Fetch tasks of a selected project
     },
   },
 });
