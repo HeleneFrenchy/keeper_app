@@ -5,11 +5,10 @@ const initialState = [
     id: "111",
     name: "Keeper App",
     description: "Stay productive!",
-    taskDuration: 3600000,
+    taskDuration: 36,
     projectId: "12",
     isRunning: true,
-    remainingTime: 4000,
-    remainingSeconds: 40,
+    remainingTime: 30,
     completed: false,
   },
   {
@@ -20,7 +19,6 @@ const initialState = [
     projectId: "13",
     isRunning: false,
     remainingTime: 5000,
-    remainingSeconds: 50,
     completed: false,
   },
 ];
@@ -37,7 +35,7 @@ export const taskSlice = createSlice({
           name: action.payload.taskName,
           description: action.payload.description,
           taskDuration: action.payload.taskDuration,
-
+          remainingTime: action.payload.taskDuration,
           projectId: action.payload.projectId,
         },
       ];
@@ -61,13 +59,22 @@ export const taskSlice = createSlice({
       state.value = "some value";
       //Reset the timer for the task (If the task duration is 24 minutes the timer will be reset to 24)
     },
-    stateTimer: (state, action) => {
-      state.value = "some value";
-      //Start and Stop timer (The state of the timer should be seen every time it changes)
+    updateRemainingTime: (state, action) => {
+      return state.map((task) => {
+        if (task.id === action.payload.taskId) {
+          return {
+            ...task,
+            remainingTime: action.payload.remainingTime,
+          };
+        }
+
+        return task;
+      });
     },
   },
 });
 
-export const { addTask, deleteTask, completeTask } = taskSlice.actions;
+export const { addTask, deleteTask, completeTask, updateRemainingTime } =
+  taskSlice.actions;
 
 export default taskSlice.reducer;

@@ -1,7 +1,8 @@
 import { useRef, useState, useEffect } from "react";
 
 export default function PlayButton(props) {
-  const [remainingSeconds, setRemainingSeconds] = useState(60); // 60 seconds
+  const startTime = 60;
+  const [remainingSeconds, setRemainingSeconds] = useState(startTime); // 60 seconds
   const [isRunning, setIsRunning] = useState(false);
   const intervalRef = useRef();
   const secondCircle = useRef();
@@ -19,14 +20,14 @@ export default function PlayButton(props) {
   }, [isRunning]);
 
   useEffect(() => {
-    const segmentLength = 157 / 60; // Length of each segment
+    const segmentLength = 157 / startTime; // Length of each segment
     secondCircle.current.style.strokeDashoffset = `${
       segmentLength * remainingSeconds
     }`;
 
     if (remainingSeconds <= 0) {
-      clearInterval(intervalRef.current);
-      setRemainingSeconds(60);
+      setRemainingSeconds(startTime);
+      props.onTimerEnd();
     }
   }, [remainingSeconds]);
 
@@ -69,6 +70,7 @@ export default function PlayButton(props) {
           </svg>
         </button>
       </div>
+      {/* <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-md focus:outline-none"></button> */}
     </div>
   );
 }

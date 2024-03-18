@@ -1,6 +1,7 @@
-import { useRef, useState } from "react";
-
 export default function TaskTimer(props) {
+  const strokeDashoffset =
+    650 - (650 / props.taskDuration) * props.remainingTime;
+
   return (
     <svg viewBox="-25 20 700 60" xmlns="http://www.w3.org/2000/svg">
       <line
@@ -12,6 +13,10 @@ export default function TaskTimer(props) {
         className="stroke-[#88adf1]"
         stroke-width="10"
         stroke-linecap="round"
+        style={{
+          strokeDasharray: 650,
+          strokeDashoffset,
+        }}
       />
     </svg>
   );

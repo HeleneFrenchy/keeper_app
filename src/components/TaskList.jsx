@@ -3,9 +3,13 @@ import {
   TrashIcon,
   ArrowPathIcon,
   CheckIcon,
-  PlayCircleIcon,
 } from "@heroicons/react/24/outline";
-import { addTask, deleteTask, completeTask } from "../store/slices/taskSlice";
+import {
+  addTask,
+  deleteTask,
+  completeTask,
+  updateRemainingTime,
+} from "../store/slices/taskSlice";
 import { useState } from "react";
 import PlayButton from "./PlayButton";
 import TaskTimer from "./TaskTimer";
@@ -34,6 +38,15 @@ export default function TaskList() {
 
   const handleFilterChange = (nextFilter) => {
     setFilter(nextFilter);
+  };
+
+  const handleMinuteTimerEnd = (task) => {
+    dispatch(
+      updateRemainingTime({
+        taskId: task.id,
+        remainingTime: task.remainingTime - 1,
+      })
+    );
   };
 
   return (
@@ -69,7 +82,14 @@ export default function TaskList() {
               }`}
             >
               <h2 className="text-center pb-4"> {task.name}</h2>{" "}
-              <div>{!task.completed && <TaskTimer />}</div>
+              <div>
+                {!task.completed && (
+                  <TaskTimer
+                    remainingTime={task.remainingTime}
+                    taskDuration={task.taskDuration}
+                  />
+                )}
+              </div>
               <p className="text-slate-400 text-sm py-2">{task.description}</p>
               <div className="flex justify-between">
                 <button onClick={() => handleDeleteTask(task.id)}>
@@ -90,7 +110,11 @@ export default function TaskList() {
                   </button>
                 </div>
               </div>
-              <div>{!task.completed && <PlayButton />}</div>
+              <div>
+                {!task.completed && (
+                  <PlayButton onTimerEnd={() => handleMinuteTimerEnd(task)} />
+                )}
+              </div>
             </div>
           );
         })}
