@@ -9,6 +9,7 @@ import {
   deleteTask,
   completeTask,
   updateRemainingTime,
+  resetTimer,
 } from "../store/slices/taskSlice";
 import { useState } from "react";
 import PlayButton from "./PlayButton";
@@ -34,6 +35,10 @@ export default function TaskList() {
 
   const handleComplete = (taskId) => {
     dispatch(completeTask(taskId));
+  };
+
+  const handleReset = (taskId) => {
+    dispatch(resetTimer(taskId));
   };
 
   const handleFilterChange = (nextFilter) => {
@@ -77,7 +82,7 @@ export default function TaskList() {
           return (
             <div
               key={task.id}
-              className={`border-2 rounded m-2 p-3 ${
+              className={`border-2 rounded m-2 p-3 mb-8 ${
                 task.completed ? "border-green-500" : "border-orange-500"
               }`}
             >
@@ -105,7 +110,7 @@ export default function TaskList() {
                     </button>
                   )}
 
-                  <button>
+                  <button onClick={() => handleReset(task.id)}>
                     <ArrowPathIcon className="h-4 w-4" />
                   </button>
                 </div>

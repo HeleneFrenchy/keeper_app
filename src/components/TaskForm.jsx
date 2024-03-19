@@ -35,7 +35,7 @@ export default function TaskForm(props) {
     props.onClose();
   };
   return (
-    <div className=" dark:text-white absolute flex flex-col w-60 inset-y left-0 right-0 max-w-md mx-auto">
+    <div className=" dark:text-white absolute z-10 flex flex-col w-60 inset-y left-0 right-0 max-w-md mx-auto">
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
@@ -60,7 +60,7 @@ export default function TaskForm(props) {
             className="border rounded w-full py-2 px-3 text-gray-700"
             id="taskDuration"
             type="number"
-            placeholder="Enter task duration"
+            placeholder="Enter task duration (min)"
             onChange={handleTaskDurationChange}
           />
         </div>

@@ -10,7 +10,7 @@ export default function TaskTimer(props) {
         x2="650"
         y2="50"
         stroke-dasharray="1000"
-        className="stroke-[#88adf1]"
+        className="stroke-blue-500"
         stroke-width="10"
         stroke-linecap="round"
         style={{

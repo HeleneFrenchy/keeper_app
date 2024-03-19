@@ -43,7 +43,7 @@ export default function PlayButton(props) {
             r="25"
             cx="50"
             cy="50"
-            className=" fill-white stroke-[#88adf1]  stroke-[9px]"
+            className=" fill-white stroke-blue-500  stroke-[9px]"
           ></circle>
           <circle
             r="25"
@@ -57,20 +57,22 @@ export default function PlayButton(props) {
             }}
           ></circle>
         </svg>
-        <button>
-          <svg
-            className="w-6 h-6 absolute inset-0 mx-auto pl-1 stroke-[#88adf1]"
-            viewBox="0 0 24 24"
-            fill="#88adf1"
-            strokeWidth="1"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polygon points="5 3 19 12 5 21 5 3"></polygon>
-          </svg>
-        </button>
+        {isRunning ? (
+          <button className="bg-blue-500 mt-6 ml-1 py-2 px-2 absolute"></button>
+        ) : (
+          <button>
+            <svg
+              className="w-6 h-6 absolute inset-0 mx-auto pl-1 stroke-blue-500 fill-blue-500"
+              viewBox="0 0 24 24"
+              strokeWidth="1"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </button>
+        )}
       </div>
-      {/* <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-md focus:outline-none"></button> */}
     </div>
   );
 }

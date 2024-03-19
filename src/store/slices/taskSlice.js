@@ -7,7 +7,7 @@ const initialState = [
     description: "Stay productive!",
     taskDuration: 36,
     projectId: "12",
-    isRunning: true,
+
     remainingTime: 30,
     completed: false,
   },
@@ -17,7 +17,7 @@ const initialState = [
     description: "Task Description",
     taskDuration: 4800000,
     projectId: "13",
-    isRunning: false,
+
     remainingTime: 5000,
     completed: false,
   },
@@ -56,8 +56,16 @@ export const taskSlice = createSlice({
       });
     },
     resetTimer: (state, action) => {
-      state.value = "some value";
-      //Reset the timer for the task (If the task duration is 24 minutes the timer will be reset to 24)
+      return state.map((task) => {
+        if (task.id === action.payload) {
+          return {
+            ...task,
+            remainingTime: task.taskDuration,
+          };
+        }
+
+        return task;
+      });
     },
     updateRemainingTime: (state, action) => {
       return state.map((task) => {
@@ -74,7 +82,12 @@ export const taskSlice = createSlice({
   },
 });
 
-export const { addTask, deleteTask, completeTask, updateRemainingTime } =
-  taskSlice.actions;
+export const {
+  addTask,
+  deleteTask,
+  completeTask,
+  updateRemainingTime,
+  resetTimer,
+} = taskSlice.actions;
 
 export default taskSlice.reducer;
