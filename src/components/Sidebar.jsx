@@ -1,14 +1,16 @@
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  addProject,
-  checkTime,
-  setDisplayed,
-} from "../store/slices/projectSlice";
+import { useDispatch } from "react-redux";
+import { setDisplayed } from "../store/slices/projectSlice";
 import { useState } from "react";
+import {
+  useAddProjectMutation,
+  useGetProjectsQuery,
+} from "../services/keeperApi";
 
 export default function Sidebar() {
-  const projects = useSelector((state) => state.projects);
+  const { data: projects = [] } = useGetProjectsQuery();
+  const [addProject] = useAddProjectMutation();
+
   const dispatch = useDispatch();
   const [showProjectInput, setShowProjectInput] = useState(false);
   const [projectName, setProjectName] = useState("");
@@ -20,7 +22,7 @@ export default function Sidebar() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(addProject(projectName));
+    addProject({ projectName });
     setProjectName("");
     setShowProjectInput(false);
   };

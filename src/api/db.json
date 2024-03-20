@@ -1,0 +1,49 @@
+{
+  "tasks": [
+    {
+      "id": "111",
+      "name": "Keeper App",
+      "description": "Stay productive!",
+      "taskDuration": 36,
+      "projectId": "12",
+      "remainingTime": 30,
+      "completed": false
+    },
+    {
+      "id": "222",
+      "name": "Task name",
+      "description": "Task Description",
+      "taskDuration": 4800000,
+      "projectId": "13",
+      "remainingTime": 5000,
+      "completed": false
+    }
+  ],
+  "projects": [
+    {
+      "id": "12",
+      "name": "Inbox",
+      "slug": "inbox",
+      "trackedTime": 3600000,
+      "displayed": true
+    },
+    {
+      "id": "13",
+      "name": "Workspace",
+      "slug": "workspace",
+      "trackedTime": 3600000
+    },
+    {
+      "id": "14",
+      "name": "CLA",
+      "slug": "cla",
+      "trackedTime": 3600000
+    },
+    {
+      "id": "15",
+      "name": "Project x",
+      "slug": "project-x",
+      "trackedTime": 3600000
+    }
+  ]
+}
