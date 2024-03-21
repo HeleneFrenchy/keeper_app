@@ -25,25 +25,55 @@
       "name": "Inbox",
       "slug": "inbox",
       "trackedTime": 3600000,
-      "displayed": true
+      "displayed": false
     },
     {
       "id": "13",
       "name": "Workspace",
       "slug": "workspace",
-      "trackedTime": 3600000
+      "trackedTime": 3600000,
+      "displayed": true
     },
     {
       "id": "14",
       "name": "CLA",
       "slug": "cla",
-      "trackedTime": 3600000
+      "trackedTime": 3600000,
+      "displayed": false
     },
     {
       "id": "15",
       "name": "Project x",
       "slug": "project-x",
-      "trackedTime": 3600000
+      "trackedTime": 3600000,
+      "displayed": false
+    },
+    {
+      "id": "16",
+      "name": "test",
+      "slug": "test",
+      "trackedTime": 0,
+      "displayed": false
+    },
+    {
+      "id": "16",
+      "name": "test2",
+      "slug": "test2",
+      "trackedTime": 0
+    },
+    {
+      "id": "8e41",
+      "name": "test3",
+      "slug": "test3",
+      "trackedTime": 0,
+      "displayed": false
+    },
+    {
+      "id": "3cfd",
+      "name": "test",
+      "slug": "test",
+      "trackedTime": 0,
+      "displayed": false
     }
   ]
 }

@@ -5,25 +5,25 @@ import {
   CheckIcon,
 } from "@heroicons/react/24/outline";
 import {
-  addTask,
   deleteTask,
   completeTask,
   updateRemainingTime,
   resetTimer,
 } from "../store/slices/taskSlice";
+import { useGetProjectsQuery } from "../services/keeperApi";
 import { useState } from "react";
 import PlayButton from "./PlayButton";
 import TaskTimer from "./TaskTimer";
 
 export default function TaskList() {
   const [filter, setFilter] = useState("all");
-  const projects = useSelector((state) => state.projects);
+  const { data: projects = [] } = useGetProjectsQuery();
   const currProject = projects.find((project) => project.displayed);
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.tasks);
 
   const filteredTasks = tasks.filter((task) => {
-    if (task.projectId !== currProject.id) return false;
+    if (task.projectId !== currProject?.id) return false;
     if (filter === "all") return true;
     else if (filter === "active" && !task.completed) return true;
     else if (filter === "completed" && task.completed) return true;
@@ -57,7 +57,7 @@ export default function TaskList() {
   return (
     <>
       <div className="dark:text-white text-right px-2">
-        <h3 className="px-2">{currProject.name}</h3>
+        <h3 className="px-2">{currProject?.name}</h3>
         <button
           className="px-2 text-sm hover:bg-blue-50 rounded "
           onClick={() => handleFilterChange("all")}

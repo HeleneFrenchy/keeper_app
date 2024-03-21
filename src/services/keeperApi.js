@@ -14,14 +14,23 @@ export const keeperApi = createApi({
       providesTags: ["Projects"],
     }),
     addProject: builder.mutation({
-      query: ({ projectName }) => ({
+      query: (projectName) => ({
         url: "projects",
         method: "POST",
         body: {
-          id: "16",
           name: projectName,
           slug: projectName,
           trackedTime: 0,
+        },
+      }),
+      invalidatesTags: ["Projects"],
+    }),
+    setDisplayed: builder.mutation({
+      query: ({ id, displayed }) => ({
+        url: `projects/${id}`,
+        method: "PATCH",
+        body: {
+          displayed,
         },
       }),
       invalidatesTags: ["Projects"],
@@ -31,5 +40,5 @@ export const keeperApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetProjectsQuery, useGetTasksQuery, useAddProjectMutation } =
+export const { useGetProjectsQuery, useGetTasksQuery, useAddProjectMutation, useSetDisplayedMutation } =
   keeperApi;
