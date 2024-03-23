@@ -1,16 +1,17 @@
-import { useDispatch, useSelector } from "react-redux";
 import {
   TrashIcon,
   ArrowPathIcon,
   CheckIcon,
 } from "@heroicons/react/24/outline";
+
 import {
-  deleteTask,
-  completeTask,
-  updateRemainingTime,
-  resetTimer,
-} from "../store/slices/taskSlice";
-import { useGetProjectsQuery } from "../services/keeperApi";
+  useGetProjectsQuery,
+  useGetTasksQuery,
+  useDeleteTaskMutation,
+  useCompleteTaskMutation,
+  useResetTimerMutation,
+  useUpdateRemainingTimeMutation,
+} from "../services/keeperApi";
 import { useState } from "react";
 import PlayButton from "./PlayButton";
 import TaskTimer from "./TaskTimer";
@@ -19,8 +20,11 @@ export default function TaskList() {
   const [filter, setFilter] = useState("all");
   const { data: projects = [] } = useGetProjectsQuery();
   const currProject = projects.find((project) => project.displayed);
-  const dispatch = useDispatch();
-  const tasks = useSelector((state) => state.tasks);
+  const { data: tasks = [] } = useGetTasksQuery();
+  const [deleteTask] = useDeleteTaskMutation();
+  const [completeTask] = useCompleteTaskMutation();
+  const [resetTimer] = useResetTimerMutation();
+  const [updateRemainingTime] = useUpdateRemainingTimeMutation();
 
   const filteredTasks = tasks.filter((task) => {
     if (task.projectId !== currProject?.id) return false;
@@ -29,16 +33,16 @@ export default function TaskList() {
     else if (filter === "completed" && task.completed) return true;
   });
 
-  const handleDeleteTask = (id) => {
-    dispatch(deleteTask(id));
+  const handleDeleteTask = (taskId) => {
+    deleteTask(taskId);
   };
 
   const handleComplete = (taskId) => {
-    dispatch(completeTask(taskId));
+    completeTask(taskId);
   };
 
-  const handleReset = (taskId) => {
-    dispatch(resetTimer(taskId));
+  const handleReset = (taskId, taskDuration) => {
+    resetTimer({ taskId, taskDuration });
   };
 
   const handleFilterChange = (nextFilter) => {
@@ -46,12 +50,10 @@ export default function TaskList() {
   };
 
   const handleMinuteTimerEnd = (task) => {
-    dispatch(
-      updateRemainingTime({
-        taskId: task.id,
-        remainingTime: task.remainingTime - 1,
-      })
-    );
+    updateRemainingTime({
+      taskId: task.id,
+      remainingTime: task.remainingTime - 1,
+    });
   };
 
   return (
@@ -110,7 +112,9 @@ export default function TaskList() {
                     </button>
                   )}
 
-                  <button onClick={() => handleReset(task.id)}>
+                  <button
+                    onClick={() => handleReset(task.id, task.taskDuration)}
+                  >
                     <ArrowPathIcon className="h-4 w-4" />
                   </button>
                 </div>

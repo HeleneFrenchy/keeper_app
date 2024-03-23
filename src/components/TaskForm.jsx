@@ -1,14 +1,13 @@
-import { addTask } from "../store/slices/taskSlice";
-import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import { useAddTaskMutation, useGetProjectsQuery } from "../services/keeperApi";
 
 export default function TaskForm(props) {
-  const dispatch = useDispatch();
   const [taskName, setTaskName] = useState("");
   const [description, setDescription] = useState("");
   const [taskDuration, setTaskDuration] = useState(0);
+  const [addTask] = useAddTaskMutation();
 
-  const projects = useSelector((state) => state.projects);
+  const { data: projects = [] } = useGetProjectsQuery();
   const currProject = projects.find((project) => project.displayed);
   const handleTaskNameChange = (event) => {
     setTaskName(event.target.value);
@@ -21,14 +20,12 @@ export default function TaskForm(props) {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(
-      addTask({
-        taskName,
-        description,
-        taskDuration,
-        projectId: currProject.id,
-      })
-    );
+    addTask({
+      taskName,
+      description,
+      taskDuration,
+      projectId: currProject.id,
+    });
     setTaskName("");
     setDescription("");
     setTaskDuration(0);

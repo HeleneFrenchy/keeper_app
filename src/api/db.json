@@ -16,7 +16,15 @@
       "taskDuration": 4800000,
       "projectId": "13",
       "remainingTime": 5000,
-      "completed": false
+      "completed": true
+    },
+    {
+      "id": "b6dd",
+      "name": "Blabla",
+      "description": "dsdsd",
+      "taskDuration": 5,
+      "remainingTime": 5,
+      "projectId": "13"
     }
   ],
   "projects": [
@@ -47,19 +55,6 @@
       "slug": "project-x",
       "trackedTime": 3600000,
       "displayed": false
-    },
-    {
-      "id": "16",
-      "name": "test",
-      "slug": "test",
-      "trackedTime": 0,
-      "displayed": false
-    },
-    {
-      "id": "16",
-      "name": "test2",
-      "slug": "test2",
-      "trackedTime": 0
     },
     {
       "id": "8e41",
